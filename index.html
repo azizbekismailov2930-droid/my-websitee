@@ -1,105 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Main Page</title>
-  <meta name="author" content="azizbek ismailov kaxramanovich">
-  <link rel="stylesheet"  href="css/main.css">
-  <div class="photos">
-  <img src="banner.png" alt="its me">
-  <link href="script.js">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  </div>
-    <style>
-        #google_language_change {
-            position: fixed;
-            top: 30px;
-            right: 10px;
-            z-index: 9999;
-            background: rgb(23, 175, 236);
-            padding: 5px 8px;
-            border-radius: 16px;
-            box-shadow: 0 2px 6px rgba(232, 9, 9, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello</title>
+</head>
 <body>
-  
-  <div class="card">
-    
-    <h2><i>IT digital college student</i></h2>
-    <h2><i>learning C++/HTML/CSS</i></h2>
-    <h2> <i> Lets practise and learn with me</i></h2>
-  </div>
-     <div class="sticker html a1">HTML</div>
-  </div>
- <div class="sticker html a1">HTML</div>
-  <div class="sticker css  a2">CSS</div>
-  <div class="sticker cpp  a3">C++</div>
-  <div class="sticker html a4">HTML</div>
-  <div class="sticker css  a5">CSS</div>
-  <div class="sticker cpp  a6">C++</div>
-  <div class="sticker html a7">HTML</div>
-  <div class="sticker css  a8">CSS</div>
-  <div class="sticker cpp  a9">C++</div>  
-  <div class="sticker cpp  a10">CSS</div>
-  <div class="sticker html a11">HTML</div>  
-  <div class="cards">
-
-  <div class="mini-card">
-    <div class="badge cpp-b">C++</div>
-    <span class="tag">LANGUAGE</span>
-    <h4>C++</h4>
-    <p>Basics and practice</p>
-    <a href="HTMLPage1.html" class="open-btn">OPEN SECTION</a>
-  </div>
-
-  <div class="mini-card">
-    <div class="badge html-b">HTML</div>
-    <span class="tag">STRUCTURE</span>
-    <h4>HTML</h4>
-    <p>Pages and elements</p>
-    <a href="html.html" class="open-btn">OPEN SECTION</a>
-  </div>
-
-  <div class="mini-card">
-    <div class="badge css-b">CSS</div>
-    <span class="tag">STYLE</span>
-    <h4>CSS</h4>
-    <p>Colors and layout</p>
-    <a href="css.html" class="open-btn">OPEN SECTION</a>
-  </div>
-
-</div>
-  </div>
-  <script>
-  document.querySelectorAll('.mini-card').forEach((card) => {
-
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;   /* -0.5 to 0.5 */
-      const y = (e.clientY - r.top)  / r.height - 0.5;
-
-      card.style.setProperty('--ry', (x * 20) + 'deg');
-      card.style.setProperty('--rx', (-y * 20) + 'deg');
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.setProperty('--rx', '0deg');
-      card.style.setProperty('--ry', '0deg');
-    });
-
-  });
-</script>
-<div id="google_language_change"></div>
-
-<script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
-
-<script type="text/javascript">
-    function loadGoogleTranslate() {
-        new google.translate.TranslateElement(
-            "google_language_change");
-    }
-    
-</script> 
+  <h1>Hello!</h1>
+  <p>Hello, world!</p>
 </body>
 </html>
