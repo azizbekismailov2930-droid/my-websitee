@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Functions: explained with live examples</title>
+<style>
+  :root {
+    --ink: #14213d;
+    --paper: #f5f7fb;
+    --card: #ffffff;
+    --blue: #2f6bff;
+    --sun: #ffb703;
+    --line: #d9dfeb;
+    --code-bg: #14213d;
+    --code-ink: #e8edf9;
+    --space: 24px;
+  }
+  * { box-sizing: border-box; }
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0d1117;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Фон с символами кода */
+#code-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Блоки чуть прозрачные, чтобы текст читался на фоне */
+section {
+  background: rgba(91, 212, 228, 0.93);
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  color: #aaa;
+}
+
+  header {
+  background: linear-gradient(135deg, #031f33, #0b4a6b 60%, #2a1f6b);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #7df2b6, #a98df0, #7df2b6) 1;
+  box-shadow: 0 8px 30px rgba(125, 242, 182, 0.15);
+}
+  header p { margin: 0 auto; max-width: 800px; color: #c7d2ee; font-size: 1.1rem; }
+  header code { color: var(--sun); }
+  nav {
+    position: sticky; top: 0; z-index: 5;
+    background: #84cbd9; border-bottom: 1px solid var(--line);
+    display: flex; gap: 8px; overflow-x: auto; padding: 10px var(--space);
+  }
+  nav a {
+    flex: none; text-decoration: none; color: var(--ink);
+    padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line);
+    font-size: .95rem;
+  }
+  nav a:hover, nav a:focus-visible { background: var(--blue); color: #fff; border-color: var(--blue); outline: none; }
+  main { max-width: 800px; margin: 0 auto; padding: var(--space); }
+  section { padding: 32px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: 0; }
+  h2 { margin: 0 0 4px; font-size: 1.7rem; }
+  h2 code { background: var(--sun); color: var(--ink); padding: 2px 10px; border-radius: 6px; }
+  .what { margin: 8px 0 16px; }
+  pre {
+    margin: 0; padding: 16px; overflow-x: auto;
+    background: var(--code-bg); color: var(--code-ink);
+    border-radius: 10px 10px 0 0; font-size: .9rem; line-height: 1.5;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  }
+  .demo {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 0 0 10px 10px; padding: 20px;
+  }
+  .demo-label { font-size: .85rem; color: #5a6785; margin: 0 0 10px; }
+  footer { text-align: center; padding: 32px var(--space); color: #5a6785; }
+
+  /* ---------- demo styles (each one uses the function being taught) ---------- */
+
+  /* 1. var() */
+  .var-box {
+    --brand: #2f6bff;
+    --radius: 12px;
+    background: var(--brand);
+    border-radius: var(--radius);
+    color: #ffffff; padding: 16px; margin-bottom: 8px;
+  }
+  .var-box.second { --brand: #e63946; }
+
+  /* 2. calc() */
+  .calc-row { display: flex; gap: 12px; }
+  .calc-side { width: 120px; background: var(--sun); padding: 12px; border-radius: 8px; }
+  .calc-main {
+    width: calc(100% - 120px - 12px);
+    background: var(--blue); color: #ffffff; padding: 12px; border-radius: 8px;
+  }
+
+  /* 3. rgb() and hsl() */
+  .swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sw { width: 90px; height: 70px; border-radius: 8px; color: #ffffff; font-size: .8rem; padding: 6px; }
+  .sw1 { background: rgb(255, 99, 71); }
+  .sw2 { background: hsl(210, 80%, 50%); }
+  .sw3 { background: hsl(210, 80%, 30%); }
+  .sw4 { background: rgb(47 107 255 / 40%); color: var(--ink); }
+
+  /* 4. clamp() */
+  .clamp-text { font-size: clamp(1rem, 4vw, 2.2rem); margin: 0; }
+
+  /* 5. linear-gradient() */
+  .grad { height: 90px; border-radius: 8px; background: linear-gradient(90deg, #2f6bff, #ffb703); }
+
+  /* 6. transform functions */
+  .tf-row { display: flex; gap: 28px; padding: 20px 8px; flex-wrap: wrap; }
+  .tf { width: 70px; height: 70px; background: var(--blue); border-radius: 8px; }
+  .tf.rot { transform: rotate(20deg); }
+  .tf.sc { transform: scale(1.3); background: var(--sun); }
+  .tf.mv { transform: translateX(20px); background: #e63946; }
+</style>
+</head>
+<body>
+<canvas id="code-bg"></canvas>
+<header>
+  <h1>CSS functions, one at a time</h1>
+  <p>A function in CSS looks like <code>name(value)</code>. It takes a value in, does a small job, and gives a value back. Each part below shows what the function does, the code, and the live result.</p>
+</header>
+
+<nav aria-label="Functions">
+  <a href="#var">var()</a>
+  <a href="#calc">calc()</a>
+  <a href="#color">rgb() / hsl()</a>
+  <a href="#clamp">clamp()</a>
+  <a href="#gradient">linear-gradient()</a>
+  <a href="#transform">rotate() / scale()</a>
+</nav>
+
+<main>
+
+  <section id="var">
+    <h2><code>var()</code></h2>
+    <p class="what">Reads a custom property (a value you named yourself, starting with <b>--</b>). Change the value in one place and everything that uses it updates.</p>
+    <pre><code>.box {
+  --brand: #2f6bff;
+  --radius: 12px;
+  background: var(--brand);
+  border-radius: var(--radius);
+}
+.box.second {
+  --brand: #e63946;   /* only this line changes the color */
+}</code></pre>
+    <div class="demo">
+      <p class="demo-label">Result: same rule, different --brand</p>
+      <div class="var-box">First box uses --brand blue</div>
+      <div class="var-box second">Second box overrides --brand to red</div>
+    </div>
+  </section>
+
+  <section id="calc">
+    <h2><code>calc()</code></h2>
+    <p class="what">Does math with mixed units. Here: take the full width, subtract a fixed sidebar and the gap.</p>
+    <pre><code>.side { width: 120px; }
+.main {
+  width: calc(100% - 120px - 12px);
+}</code></pre>
+    <div class="demo">
+      <p class="demo-label">Result: resize the window, the blue part keeps filling the rest</p>
+      <div class="calc-row">
+        <div class="calc-side">120px</div>
+        <div class="calc-main">100% - 120px - 12px</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="color">
+    <h2><code>rgb()</code> and <code>hsl()</code></h2>
+    <p class="what"><b>rgb(red, green, blue)</b> uses numbers 0 to 255. <b>hsl(hue, saturation, lightness)</b> is easier to tweak: hue is the color on a 0 to 360 wheel, lightness makes it lighter or darker. A slash adds transparency.</p>
+    <pre><code>.sw1 { background: rgb(255, 99, 71); }
+.sw2 { background: hsl(210, 80%, 50%); }
+.sw3 { background: hsl(210, 80%, 30%); }  /* same color, darker */
+.sw4 { background: rgb(47 107 255 / 40%); } /* 40% opaque */</code></pre>
+    <div class="demo">
+      <p class="demo-label">Result</p>
+      <div class="swatches">
+        <div class="sw sw1">rgb</div>
+        <div class="sw sw2">hsl 50%</div>
+        <div class="sw sw3">hsl 30%</div>
+        <div class="sw sw4">40% alpha</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="clamp">
+    <h2><code>clamp()</code></h2>
+    <p class="what">Takes three values: minimum, preferred, maximum. The result grows with the screen but never goes below the minimum or above the maximum.</p>
+    <pre><code>h1 {
+  font-size: clamp(1rem, 4vw, 2.2rem);
+  /*               min   grows  max   */
+}</code></pre>
+    <div class="demo">
+      <p class="demo-label">Result: resize the window and watch this text</p>
+      <p class="clamp-text">I grow and stop.</p>
+    </div>
+  </section>
+
+  <section id="gradient">
+    <h2><code>linear-gradient()</code></h2>
+    <p class="what">Makes a smooth blend between colors. The first value is the direction (90deg = left to right), then the colors.</p>
+    <pre><code>.grad {
+  height: 90px;
+  background: linear-gradient(90deg, #2f6bff, #ffb703);
+}</code></pre>
+    <div class="demo">
+      <p class="demo-label">Result</p>
+      <div class="grad"></div>
+    </div>
+  </section>
+
+  <section id="transform">
+    <h2><code>rotate()</code>, <code>scale()</code>, <code>translateX()</code></h2>
+    <p class="what">Used inside <b>transform</b>. They turn, resize, or move an element without changing the layout around it.</p>
+    <pre><code>.rot { transform: rotate(20deg); }
+.sc  { transform: scale(1.3); }       /* 30% bigger */
+.mv  { transform: translateX(20px); } /* 20px to the right */</code></pre>
+    <div class="demo">
+      <p class="demo-label">Result</p>
+      <div class="tf-row">
+        <div class="tf"></div>
+        <div class="tf rot"></div>
+        <div class="tf sc"></div>
+        <div class="tf mv"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Try it yourself</h2>
+    <p class="what">Right-click this page and choose <b>Inspect</b>. Click any box, then change a value such as <code>--brand</code> or <code>clamp()</code> in the Styles panel and watch it update live. Or open this file in a code editor and edit the CSS inside the <code>&lt;style&gt;</code> tag.</p>
+  </section>
+
+</main>
+
+<footer>Save as css-functions.html and open it in any browser.</footer>
+<script>
+    const canvas = document.getElementById('code-bg');
+    const ctx = canvas.getContext('2d');
+    const symbols = '{}[]()<>/\\;:=+-*&|!?#$%01'.split('');
+    const size = 16;
+    let drops = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const columns = Math.floor(canvas.width / size);
+      drops = Array.from({ length: columns }, () => Math.random() * canvas.height / size);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      // Полупрозрачный фон создаёт эффект "шлейфа"
+      ctx.fillStyle = 'rgba(13, 17, 23, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00ff9c';
+      ctx.font = size + 'px monospace';
+
+      drops.forEach((y, i) => {
+        const char = symbols[Math.floor(Math.random() * symbols.length)];
+        ctx.fillText(char, i * size, y * size);
+
+        if (y * size > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      });
+    }
+
+    setInterval(draw, 50);
+  </script>
+  <a href="index.html">RETURN FIRST PAGE</a>
+</body>
+</html>

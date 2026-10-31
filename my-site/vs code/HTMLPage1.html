@@ -1,0 +1,365 @@
+﻿<!----website_generator.cpp
+// A C++ program that creates a website (index.html) about C++ coding.
+// Browsers only understand HTML/CSS/JS, so this program WRITES that code to a file.
+//
+// Compile:  g++ website_generator.cpp -o generator
+// Run:      ./generator        (on Windows: generator.exe)
+// Then open the new index.html file in your browser.-->
+
+ <iostream>
+     <fstream>
+         <string>
+           
+
+            <!---- Part 1: the page head and styles
+            string makeHead(const string& title) {
+            string html = R"HTML--><!DOCTYPE html>
+            <html lang="en">
+            <head>
+                 
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>
+                    C++ LEARNING 
+                </title>
+                <style>
+                    * {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                   body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0d1117;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Фон с символами кода */
+#code-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Блоки чуть прозрачные, чтобы текст читался на фоне */
+section {
+  background: rgba(71, 10, 5, 0.93);
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  color: #aaa;
+}
+a{
+    color:#16ed70;
+}
+                    header {
+  background: linear-gradient(135deg, #031f33, #0b4a6b 60%, #2a1f6b);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #7df2b6, #a98df0, #7df2b6) 1;
+  box-shadow: 0 8px 30px rgba(125, 242, 182, 0.15);
+}
+
+                    nav {
+                        background:  rgb(4, 70, 114);
+                        text-align: center;
+                        padding: 12px;
+                        position: sticky;
+                        top: 0;
+                    }
+nav a {
+  position: relative;
+  color: #cfe8ff;
+  margin: 0 10px;
+  text-decoration: none;
+  padding: 6px 2px;
+  transition: color 0.2s;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #7df2b6;
+  transition: width 0.25s;
+}
+
+nav a:hover { color: #7df2b6; }
+nav a:hover::after { width: 100%; }
+
+                    main {
+                        max-width: 800px;
+                        margin: 0 auto;
+                        padding: 30px 20px;
+                    }
+
+                    section {
+                        margin-bottom: 40px;
+                    }
+
+                    h2 {
+                        color: #4ec9b0;
+                        margin-bottom: 12px;
+                    }
+
+                    pre {
+                        background: #030600;
+                        border-left: 4px solid #569cd6;
+                        padding: 16px;
+                        overflow-x: auto;
+                        border-radius: 6px;
+                        margin: 12px 0;
+                        font-size: 0.95rem;
+                    }
+                    p{
+                        color:#16ed70;
+                    }
+                    
+
+                    code {
+                        font-family: Consolas, monospace;
+                        color: #ce9178;
+                    }
+
+                    .tip {
+                        background: #2d2d30;
+                        padding: 14px;
+                        border-radius: 6px;
+                        margin-top: 10px;
+                    }
+                    
+                         
+                   
+
+                    footer {
+                        text-align: center;
+                        padding: 24px;
+                        background:  rgb(4, 74, 121);
+                        font-size: 0.9rem;
+                        color: rgb(212, 108, 33);
+                    }
+    
+                </style>
+            </head>
+            <body>
+                <canvas id="code-bg"></canvas>
+                <!----Part 2: header and navigation-->
+                <header>
+                    <h1>Learn C++</h1>
+                    <p>A simple guide for beginners: variables, input, loops and functions.</p>
+                </header>
+                <nav>
+                    <a href="#start">First program</a>
+                    <a href="#variables">Variables</a>
+                    <a href="#loops">Loops</a>
+                    <a href="#functions">Functions</a>
+                    <a href="#tips">Tips</a>
+                </nav>
+                <main>
+                    
+
+                    <section id="start">
+                        <h2>Your first program</h2>
+                        <p>Every C++ program starts in the <code>main</code> function.</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Hello, world!";
+    return 0;
+}</code></pre>
+                    </section>
+
+                    <section id="variables">
+                        <h2>Variables and input</h2>
+                        <p>A variable stores a value. Each one has a type.</p>
+<pre><code>int age = 18;          // whole number
+double price = 9.99;   // decimal number
+string name = "Aziz";  // text (needs #include &lt;string&gt;)
+
+cin &gt;&gt; age;            // read from the keyboard
+cout &lt;&lt; name &lt;&lt; " " &lt;&lt; age;</code></pre>
+                        <div class="tip">A <code>double</code> cannot hold text. Use <code>string</code> for names.</div>
+                    </section>
+
+                    <section id="loops">
+                        <h2>Loops</h2>
+                        <p>A loop repeats code. This one prints the numbers 1 to 5.</p>
+<pre><code>for (int i = 1; i &lt;= 5; i++) {
+    cout &lt;&lt; i &lt;&lt; endl;
+}</code></pre>
+                    </section>
+
+                    <section id="functions">
+                        <h2>Functions</h2>
+                        <p>A function is a reusable block of code.</p>
+<pre><code>int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    cout &lt;&lt; add(1, 5);  
+}</code></pre>
+                    </section>
+
+                    <section id="tips">
+                        <h2>Tips for beginners</h2>
+                        <p>1. Every statement ends with a semicolon <code>;</code></p>
+                        <p>2. You cannot declare two variables with the same name in one scope.</p>
+                        <p>3. Give variables a value before you use them.</p>
+                        <p>4. Read compiler errors from the top: the first error is usually the real one.</p>
+                    </section>
+                    <section id="example-age">
+    <h2>Example 1: Age check</h2>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+int main()
+{
+  int yosh;
+  string ism;
+  
+  cout &lt;&lt; "Ismingizni kiriting: ";
+  cin &gt;&gt; ism;
+  cout &lt;&lt; "Yoshingizni kiriting: ";
+  cin &gt;&gt; yosh;
+  
+  if (yosh &gt;= 18)
+  
+    cout &lt;&lt; ism &lt;&lt; ", siz kattasiz." &lt;&lt; endl;
+  
+  else
+  
+    cout &lt;&lt; ism &lt;&lt; ", siz yosh bolalardan birisiz." &lt;&lt; endl;
+  
+
+  return 0;
+}</code></pre>
+</section>
+
+<section id="example-types">
+    <h2>Example 2: Variables and data types</h2>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+int main (){
+  //o'zgaruvchilar:
+    int a, b;
+        cout&lt;&lt;"ozgaruvchi A: ";
+        cin&gt;&gt;a;
+        cout&lt;&lt;"ozgaruchi B: ";
+        cin&gt;&gt;b;
+        cout&lt;&lt;"A: "&lt;&lt;a&lt;&lt;"B: "&lt;&lt;b;
+// malumot turlari (butun sonlar)
+short num1 = 7; // 2 byte / -32K до 32K
+int num2 = 5; // 4 byte / -2B - 2B
+long num3 = 5; // 8 byte
+
+unsigned short num4 = 7; // 2 byte / 0 до 65K
+unsigned int num5 = 5; // 4 byte / 0 - 4B
+unsigned long num6 = 5; // 8 byte 0-&amp;
+// (qoldiq sonlar)
+float num7 = 5.656656f;
+double num8 = 454.44545454545f;
+// symvol lar bilan ishlash
+char sym = '&amp;';
+bool ishappy = true;
+return 0;
+
+}</code></pre>
+</section>
+
+<section id="example-calculator">
+    <h2>Example 3: Calculator</h2>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+int main (){
+    setlocale(LC_ALL, "RU");
+    
+    
+    float num1, num2,res;
+    cout&lt;&lt;"enter num1:";
+    cin&gt;&gt;num1;
+    
+    cout&lt;&lt;"enter num2:";
+    cin&gt;&gt;num2;
+    
+    char math;
+    cout&lt;&lt;"enter math symbol:";
+    cin&gt;&gt;math;
+    //-, *, /, +
+    
+    if(math=='+')
+    res = num1 + num2;
+    else if(math=='-')
+    res= num1-num2;
+    else if(math=='*')
+    res = num1*num2;
+    cout&lt;&lt;"result:"&lt;&lt;res&lt;&lt;endl;
+    
+    return 0;
+    
+}</code></pre>
+</section>
+
+                    
+                </main>
+                <footer>END OF THE PAGE</footer>
+                <a href="index.html">return to first page;
+                        <script>
+        const canvas = document.getElementById('code-bg');
+        const ctx = canvas.getContext('2d');
+        const symbols = '{}[]()<>/\\;:=+-*&|!?#$%01'.split('');
+        const size = 16;
+        let drops = [];
+
+        function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const columns = Math.floor(canvas.width / size);
+        drops = Array.from({ length: columns }, () => Math.random() * canvas.height / size);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function draw() {
+        // Полупрозрачный фон создаёт эффект "шлейфа"
+        ctx.fillStyle = 'rgba(13, 17, 23, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#00ff9c';
+        ctx.font = size + 'px monospace';
+
+        drops.forEach((y, i) => {
+            const char = symbols[Math.floor(Math.random() * symbols.length)];
+            ctx.fillText(char, i * size, y * size);
+
+            if (y * size > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+            }
+            drops[i]++;
+        });
+        }
+
+        setInterval(draw, 50);
+    </script>
+</body>
+            </body>
+        </html>
+       
+
+       

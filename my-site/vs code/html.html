@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet"  href="css/for.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn HTML</title>
+  <!-- Link the stylesheet file -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="code-bg"></canvas>
+  <header>
+    <h1>Learn HTML</h1>
+    <nav>
+      <a href="#basics">Basics</a>
+      <a href="#text">Text</a>
+      <a href="#lists">Lists</a>
+      <a href="#links">Links</a>
+      <a href="#form">Form</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="basics">
+      <h2>1. Basics</h2>
+      <p>HTML is a markup language. It tells the browser what on the page is a heading, what is a paragraph, and what is a link. Each element is made of tags: an opening tag <code>&lt;p&gt;</code> and a closing tag <code>&lt;/p&gt;</code>.</p>
+
+      <!-- ADDED -->
+      <h3>Code:</h3>
+      <pre><code>&lt;p&gt;Hello, world!&lt;/p&gt;
+
+&lt;!-- Opening and closing tags --&gt;
+&lt;p&gt;Paragraph text&lt;/p&gt;</code></pre>
+    </section>
+
+    <section id="text">
+      <h2>2. Text</h2>
+      <h3>Third-level heading</h3>
+      <p>This is a regular paragraph. <strong>Bold text</strong>, <em>italic</em> and <mark>highlighted text</mark>.</p>
+      <p>A new line<br>inside one paragraph.</p>
+
+      <!-- ADDED -->
+      <h3>Code:</h3>
+      <pre><code>&lt;h3&gt;Third-level heading&lt;/h3&gt;
+&lt;p&gt;This is a regular paragraph. &lt;strong&gt;Bold text&lt;/strong&gt;, &lt;em&gt;italic&lt;/em&gt; and &lt;mark&gt;highlighted text&lt;/mark&gt;.&lt;/p&gt;
+&lt;p&gt;A new line&lt;br&gt;inside one paragraph.&lt;/p&gt;</code></pre>
+    </section>
+
+    <section id="lists">
+      <h2>3. Lists</h2>
+      <h3>Bulleted list</h3>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+      </ul>
+      <h3>Numbered list</h3>
+      <ol>
+        <li>Create the file index.html</li>
+        <li>Write the code</li>
+        <li>Open it in the browser</li>
+      </ol>
+
+      <!-- ADDED -->
+      <h3>Code:</h3>
+      <pre><code>&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create the file index.html&lt;/li&gt;
+  &lt;li&gt;Write the code&lt;/li&gt;
+  &lt;li&gt;Open it in the browser&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    </section>
+
+    <section id="links">
+      <h2>4. Links and images</h2>
+      <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">HTML documentation on MDN</a></p>
+      <!-- Put the picture photo.jpg in the same folder -->
+      <!-- <img src="photo.jpg" alt="Picture description" width="300"> -->
+
+      <!-- ADDED -->
+      <h3>Code:</h3>
+      <pre><code>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank"&gt;HTML documentation on MDN&lt;/a&gt;
+
+&lt;img src="photo.jpg" alt="Picture description" width="300"&gt;</code></pre>
+    </section>
+
+    <section id="form">
+      <h2>5. Form</h2>
+      <form>
+        <label for="name">Your name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label for="level">Level:</label>
+        <select id="level">
+          <option>Beginner</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+        </select>
+
+        <button type="button">Submit</button>
+      </form>
+
+      <!-- ADDED -->
+      <h3>Code:</h3>
+      <pre><code>&lt;form&gt;
+  &lt;label for="name"&gt;Your name:&lt;/label&gt;
+  &lt;input type="text" id="name" placeholder="Enter your name"&gt;
+
+  &lt;label for="level"&gt;Level:&lt;/label&gt;
+  &lt;select id="level"&gt;
+    &lt;option&gt;Beginner&lt;/option&gt;
+    &lt;option&gt;Intermediate&lt;/option&gt;
+    &lt;option&gt;Advanced&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;button type="button"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 My learning website</p>
+  </footer>
+  <script>
+    const canvas = document.getElementById('code-bg');
+    const ctx = canvas.getContext('2d');
+    const symbols = '{}[]()<>/\\;:=+-*&|!?#$%01'.split('');
+    const size = 16;
+    let drops = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const columns = Math.floor(canvas.width / size);
+      drops = Array.from({ length: columns }, () => Math.random() * canvas.height / size);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      // The semi-transparent background creates the "trail" effect
+      ctx.fillStyle = 'rgba(13, 17, 23, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00ff9c';
+      ctx.font = size + 'px monospace';
+
+      drops.forEach((y, i) => {
+        const char = symbols[Math.floor(Math.random() * symbols.length)];
+        ctx.fillText(char, i * size, y * size);
+
+        if (y * size > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      });
+    }
+
+    setInterval(draw, 50);
+  </script>
+  <div class="back-link">
+  <a href="index.html">RETURN TO FIRST PAGE</a>
+</div>
+</body>
+</html>
